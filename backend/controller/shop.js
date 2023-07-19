@@ -64,7 +64,7 @@ router.post(
 // create activation token
 const createActivationToken = (seller) => {
   return jwt.sign(seller, process.env.ACTIVATION_SECRET, {
-    expiresIn: '5m',
+    expiresIn: '1d',
   });
 };
 
