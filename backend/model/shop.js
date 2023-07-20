@@ -1,24 +1,21 @@
-const mongoose = require("mongoose");
-const bcrypt = require("bcryptjs");
-const jwt = require("jsonwebtoken");
+const mongoose = require('mongoose');
+const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
 
 const shopSchema = new mongoose.Schema({
   name: {
     type: String,
-    required: [true, "Please enter your shop name!"],
+    required: [true, 'Please enter your shop name!'],
   },
   email: {
     type: String,
-    required: [true, "Please enter your shop email address"],
+    required: [true, 'Please enter your shop email address'],
   },
   password: {
     type: String,
-    required: [true, "Please enter your password"],
-    minLength: [6, "Password should be greater than 6 characters"],
+    required: [true, 'Please enter your password'],
+    minLength: [6, 'Password should be greater than 6 characters'],
     select: false,
-  },
-  description: {
-    type: String,
   },
   address: {
     type: String,
@@ -30,7 +27,7 @@ const shopSchema = new mongoose.Schema({
   },
   role: {
     type: String,
-    default: "Seller",
+    default: 'seller',
   },
   avatar: {
     public_id: {
@@ -53,7 +50,7 @@ const shopSchema = new mongoose.Schema({
     type: Number,
     default: 0,
   },
-  transections: [
+  transactions: [
     {
       amount: {
         type: Number,
@@ -61,7 +58,7 @@ const shopSchema = new mongoose.Schema({
       },
       status: {
         type: String,
-        default: "Processing",
+        default: 'Processing',
       },
       createdAt: {
         type: Date,
@@ -81,8 +78,8 @@ const shopSchema = new mongoose.Schema({
 });
 
 // Hash password
-shopSchema.pre("save", async function (next) {
-  if (!this.isModified("password")) {
+shopSchema.pre('save', async function (next) {
+  if (!this.isModified('password')) {
     next();
   }
   this.password = await bcrypt.hash(this.password, 10);
@@ -100,4 +97,4 @@ shopSchema.methods.comparePassword = async function (enteredPassword) {
   return await bcrypt.compare(enteredPassword, this.password);
 };
 
-module.exports = mongoose.model("Shop", shopSchema);
+module.exports = mongoose.model('Shop', shopSchema);

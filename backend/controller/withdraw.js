@@ -91,14 +91,14 @@ router.put(
 
       const seller = await Shop.findById(sellerId);
 
-      const transection = {
+      const transaction = {
         _id: withdraw._id,
         amount: withdraw.amount,
         updatedAt: withdraw.updatedAt,
         status: withdraw.status,
       };
 
-      seller.transections = [...seller.transections, transection];
+      seller.transactions = [...seller.transactions, transaction];
 
       await seller.save();
 

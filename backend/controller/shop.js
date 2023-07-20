@@ -64,7 +64,7 @@ router.post(
 
 // create activation token
 const createActivationToken = (seller) => {
-  return jwt.sign(seller, process.env.ACTIVATION_SECRET_AGENT, {
+  return jwt.sign(seller, process.env.ACTIVATION_SECRET, {
     expiresIn: '5m',
   });
 };
@@ -78,7 +78,7 @@ router.post(
 
       const newSeller = jwt.verify(
         activation_token,
-        process.env.ACTIVATION_SECRET_AGENT
+        process.env.ACTIVATION_SECRET
       );
 
       if (!newSeller) {
@@ -105,6 +105,7 @@ router.post(
 
       sendShopToken(seller, 201, res);
     } catch (error) {
+      console.log(error.response.data);
       return next(new ErrorHandler(error.message, 500));
     }
   })
