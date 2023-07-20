@@ -1,5 +1,4 @@
 const express = require('express');
-const path = require('path');
 const router = express.Router();
 const jwt = require('jsonwebtoken');
 const sendMail = require('../utils/sendMail');
@@ -15,27 +14,28 @@ router.post(
   '/create-shop',
   catchAsyncErrors(async (req, res, next) => {
     try {
-      const { email } = req.body;
+      const { email, name, password, address, phoneNumber, zipCode, avatar } =
+        req.body;
       const sellerEmail = await Shop.findOne({ email });
       if (sellerEmail) {
         return next(new ErrorHandler('User already exists', 400));
       }
 
-      const myCloud = await cloudinary.v2.uploader.upload(req.body.avatar, {
+      const myCloud = await cloudinary.v2.uploader.upload(avatar, {
         folder: 'avatars',
       });
 
       const seller = {
-        name: req.body.name,
-        email: email,
-        password: req.body.password,
+        name,
+        email,
+        password,
         avatar: {
           public_id: myCloud.public_id,
           url: myCloud.secure_url,
         },
-        address: req.body.address,
-        phoneNumber: req.body.phoneNumber,
-        zipCode: req.body.zipCode,
+        address,
+        phoneNumber,
+        zipCode,
       };
 
       const activationToken = createActivationToken(seller);
@@ -53,6 +53,7 @@ router.post(
           message: `please check your email:- ${seller.email} to activate your shop!`,
         });
       } catch (error) {
+        console.log(error.response.data);
         return next(new ErrorHandler(error.message, 500));
       }
     } catch (error) {
@@ -63,8 +64,8 @@ router.post(
 
 // create activation token
 const createActivationToken = (seller) => {
-  return jwt.sign(seller, process.env.ACTIVATION_SECRET, {
-    expiresIn: '1d',
+  return jwt.sign(seller, process.env.ACTIVATION_SECRET_AGENT, {
+    expiresIn: '5m',
   });
 };
 
@@ -77,7 +78,7 @@ router.post(
 
       const newSeller = jwt.verify(
         activation_token,
-        process.env.ACTIVATION_SECRET
+        process.env.ACTIVATION_SECRET_AGENT
       );
 
       if (!newSeller) {

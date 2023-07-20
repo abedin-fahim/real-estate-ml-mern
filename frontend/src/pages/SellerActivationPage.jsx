@@ -19,15 +19,16 @@ const SellerActivationPage = () => {
             console.log(res);
           })
           .catch((err) => {
+            console.log(err.response.data);
             setError(true);
           });
       };
       sendRequest();
     }
-  }, []);
-  useEffect(() => {
-    console.log(error);
-  }, [error]);
+  }, [activation_token]);
+  // useEffect(() => {
+  //   console.log(error);
+  // }, [error]);
 
   return (
     <div
