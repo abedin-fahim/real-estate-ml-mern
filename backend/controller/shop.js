@@ -41,6 +41,7 @@ router.post(
       const activationToken = createActivationToken(seller);
 
       const activationUrl = `http://localhost:3000/seller/activation/${activationToken}`;
+      // console.log(activationUrl);
 
       try {
         await sendMail({
@@ -48,6 +49,8 @@ router.post(
           subject: 'Activate your Shop',
           message: `Hello ${seller.name}, please click on the link to activate your shop: ${activationUrl}`,
         });
+
+        // sendShopToken(seller, 201, res);
         res.status(201).json({
           success: true,
           message: `please check your email:- ${seller.email} to activate your shop!`,
@@ -64,7 +67,7 @@ router.post(
 
 // create activation token
 const createActivationToken = (seller) => {
-  return jwt.sign(seller, process.env.ACTIVATION_SECRET, {
+  return jwt.sign(seller, process.env.ACTIVATION_SECRET_AGENT, {
     expiresIn: '5m',
   });
 };
@@ -78,7 +81,7 @@ router.post(
 
       const newSeller = jwt.verify(
         activation_token,
-        process.env.ACTIVATION_SECRET
+        process.env.ACTIVATION_SECRET_AGENT
       );
 
       if (!newSeller) {
@@ -105,7 +108,7 @@ router.post(
 
       sendShopToken(seller, 201, res);
     } catch (error) {
-      console.log(error.response.data);
+      console.log(error);
       return next(new ErrorHandler(error.message, 500));
     }
   })
@@ -337,7 +340,7 @@ router.put(
   })
 );
 
-// delete seller withdraw merthods --- only seller
+// delete seller withdraw methods --- only seller
 router.delete(
   '/delete-withdraw-method/',
   isSeller,
