@@ -6,6 +6,7 @@ import { server } from '../server';
 
 const SellerActivationPage = () => {
   const { activation_token } = useParams();
+  console.log(activation_token);
   const [error, setError] = useState(false);
 
   useEffect(() => {
