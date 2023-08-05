@@ -1,15 +1,15 @@
-const Shop = require("../model/shop");
-const ErrorHandler = require("../utils/ErrorHandler");
-const catchAsyncErrors = require("../middleware/catchAsyncErrors");
-const express = require("express");
-const { isSeller, isAuthenticated, isAdmin } = require("../middleware/auth");
-const Withdraw = require("../model/withdraw");
-const sendMail = require("../utils/sendMail");
+const Shop = require('../model/shop');
+const ErrorHandler = require('../utils/ErrorHandler');
+const catchAsyncErrors = require('../middleware/catchAsyncErrors');
+const express = require('express');
+const { isSeller, isAuthenticated, isAdmin } = require('../middleware/auth');
+const Withdraw = require('../model/withdraw');
+const sendMail = require('../utils/sendMail');
 const router = express.Router();
 
 // create withdraw request --- only for seller
 router.post(
-  "/create-withdraw-request",
+  '/create-withdraw-request',
   isSeller,
   catchAsyncErrors(async (req, res, next) => {
     try {
@@ -23,7 +23,7 @@ router.post(
       try {
         await sendMail({
           email: req.seller.email,
-          subject: "Withdraw Request",
+          subject: 'Withdraw Request',
           message: `Hello ${req.seller.name}, Your withdraw request of ${amount}$ is processing. It will take 3days to 7days to processing! `,
         });
         res.status(201).json({
@@ -54,9 +54,9 @@ router.post(
 // get all withdraws --- admnin
 
 router.get(
-  "/get-all-withdraw-request",
+  '/get-all-withdraw-request',
   isAuthenticated,
-  isAdmin("Admin"),
+  isAdmin('Admin'),
   catchAsyncErrors(async (req, res, next) => {
     try {
       const withdraws = await Withdraw.find().sort({ createdAt: -1 });
@@ -73,9 +73,9 @@ router.get(
 
 // update withdraw request ---- admin
 router.put(
-  "/update-withdraw-request/:id",
+  '/update-withdraw-request/:id',
   isAuthenticated,
-  isAdmin("Admin"),
+  isAdmin('Admin'),
   catchAsyncErrors(async (req, res, next) => {
     try {
       const { sellerId } = req.body;
@@ -83,7 +83,7 @@ router.put(
       const withdraw = await Withdraw.findByIdAndUpdate(
         req.params.id,
         {
-          status: "succeed",
+          status: 'succeed',
           updatedAt: Date.now(),
         },
         { new: true }
@@ -105,7 +105,7 @@ router.put(
       try {
         await sendMail({
           email: seller.email,
-          subject: "Payment confirmation",
+          subject: 'Payment confirmation',
           message: `Hello ${seller.name}, Your withdraw request of ${withdraw.amount}$ is on the way. Delivery time depends on your bank's rules it usually takes 3days to 7days.`,
         });
       } catch (error) {

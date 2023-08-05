@@ -1,5 +1,25 @@
 {
   "cSpell.words": [
     "cloudinary"
-  ]
+  ],
+  "workbench.colorCustomizations": {
+    "activityBar.activeBackground": "#67b5ee",
+    "activityBar.background": "#67b5ee",
+    "activityBar.foreground": "#15202b",
+    "activityBar.inactiveForeground": "#15202b99",
+    "activityBarBadge.background": "#c9167d",
+    "activityBarBadge.foreground": "#e7e7e7",
+    "commandCenter.border": "#15202b99",
+    "sash.hoverBorder": "#67b5ee",
+    "statusBar.background": "#399fe9",
+    "statusBar.foreground": "#15202b",
+    "statusBarItem.hoverBackground": "#1887d7",
+    "statusBarItem.remoteBackground": "#399fe9",
+    "statusBarItem.remoteForeground": "#15202b",
+    "titleBar.activeBackground": "#399fe9",
+    "titleBar.activeForeground": "#15202b",
+    "titleBar.inactiveBackground": "#399fe999",
+    "titleBar.inactiveForeground": "#15202b99"
+  },
+  "peacock.color": "#399fe9"
 }

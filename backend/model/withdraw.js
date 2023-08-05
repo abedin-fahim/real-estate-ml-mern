@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+const mongoose = require('mongoose');
 
 const withdrawSchema = new mongoose.Schema({
   seller: {
@@ -11,15 +11,15 @@ const withdrawSchema = new mongoose.Schema({
   },
   status: {
     type: String,
-    default: "Processing",
+    default: 'Ordered',
   },
   createdAt: {
     type: Date,
     default: Date.now(),
   },
-  updatedAt:{
+  updatedAt: {
     type: Date,
-  }
+  },
 });
 
-module.exports = mongoose.model("Withdraw", withdrawSchema);
+module.exports = mongoose.model('Withdraw', withdrawSchema);
