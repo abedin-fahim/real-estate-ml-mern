@@ -147,6 +147,9 @@ const ProductDetails = ({ data }) => {
                 </div>
               </div>
               <div className='w-full 800px:w-[50%] pt-5'>
+                <h4 className={`${styles.productPredictedPrice}`}>
+                  {data.predictionPrice}
+                </h4>
                 <h1 className={`${styles.productTitle}`}>{data.name}</h1>
                 <p>{data.description}</p>
                 <div className='flex pt-3'>
