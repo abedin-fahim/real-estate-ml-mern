@@ -55,23 +55,23 @@ router.post(
         }
 
         let productData = req.body;
-        axios.post(pricePredictorModelUrl, queryString).then((response) => {
-          console.log(response.data.Predict_score);
-          productData = {
-            ...req.body,
-            predictionPrice: response.data.Predict_score,
-          };
-        });
-        console.log('productData', productData);
+
+        const response = await axios.post(pricePredictorModelUrl, queryString);
+
+        productData = {
+          predictionPrice: response.data.Predict_score,
+          ...req.body,
+        };
+        console.log(productData);
         productData.images = imagesLinks;
         productData.shop = shop;
 
         const product = await Product.create(productData);
 
-        // res.status(201).json({
-        //   success: true,
-        //   product,
-        // });
+        res.status(201).json({
+          success: true,
+          product,
+        });
       }
     } catch (error) {
       return next(new ErrorHandler(error, 400));
