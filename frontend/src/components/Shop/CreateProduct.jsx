@@ -19,7 +19,10 @@ const CreateProduct = () => {
   const [tags, setTags] = useState('');
   const [originalPrice, setOriginalPrice] = useState();
   const [discountPrice, setDiscountPrice] = useState();
-  const [stock, setStock] = useState();
+  const [areaType, setAreaType] = useState('');
+
+  // const [stock, setStock] = useState();
+  const stock = 1;
 
   useEffect(() => {
     if (error) {
@@ -63,6 +66,7 @@ const CreateProduct = () => {
     newForm.append('tags', tags);
     newForm.append('originalPrice', originalPrice);
     newForm.append('discountPrice', discountPrice);
+    newForm.append('areaType', areaType);
     newForm.append('stock', stock);
     newForm.append('shopId', seller._id);
     dispatch(
@@ -73,6 +77,7 @@ const CreateProduct = () => {
         tags,
         originalPrice,
         discountPrice,
+        areaType,
         stock,
         shopId: seller._id,
         images,
@@ -126,7 +131,7 @@ const CreateProduct = () => {
             value={category}
             onChange={(e) => setCategory(e.target.value)}
           >
-            <option value='Choose a category'>Choose a Location</option>
+            <option value='Choose a category'>Select area type</option>
             {categoriesData &&
               categoriesData.map((i) => (
                 <option
@@ -136,6 +141,26 @@ const CreateProduct = () => {
                   {i.title}
                 </option>
               ))}
+          </select>
+        </div>
+        <br />
+        <div>
+          <label className='pb-2'>
+            Area type <span className='text-red-500'>*</span>
+          </label>
+          <select
+            className='w-full mt-2 border h-[35px] rounded-[5px]'
+            value={areaType}
+            onChange={(e) => {
+              setAreaType(e.target.value);
+              // console.log(areaType);
+            }}
+          >
+            <option value='Choose a area type'>Select area type</option>
+            <option value='Super built-up Area'>Super built-up Area</option>
+            <option value='Plot Area'>Plot Area</option>
+            <option value='Built-up Area'>Built-up Area</option>
+            <option value='Carpet Area'>Carpet Area</option>
           </select>
         </div>
         <br />
@@ -159,7 +184,7 @@ const CreateProduct = () => {
             value={originalPrice}
             className='mt-2 appearance-none block w-full px-3 h-[35px] border border-gray-300 rounded-[3px] placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm'
             onChange={(e) => setOriginalPrice(e.target.value)}
-            placeholder='Enter your product price...'
+            placeholder='Enter your property price (Per Sqft)'
           />
         </div>
         <br />
@@ -173,11 +198,11 @@ const CreateProduct = () => {
             value={discountPrice}
             className='mt-2 appearance-none block w-full px-3 h-[35px] border border-gray-300 rounded-[3px] placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm'
             onChange={(e) => setDiscountPrice(e.target.value)}
-            placeholder='Enter your product price with discount...'
+            placeholder='Enter your property price with discount (Per Sqft)'
           />
         </div>
         <br />
-        <div>
+        {/* <div>
           <label className='pb-2'>
             Product Stock <span className='text-red-500'>*</span>
           </label>
@@ -189,7 +214,7 @@ const CreateProduct = () => {
             onChange={(e) => setStock(e.target.value)}
             placeholder='Enter your product stock...'
           />
-        </div>
+        </div> */}
         <br />
         <div>
           <label className='pb-2'>

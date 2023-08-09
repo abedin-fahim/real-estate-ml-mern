@@ -62,7 +62,7 @@ router.post(
           predictionPrice: response.data.Predict_score,
           ...req.body,
         };
-        console.log(productData);
+        console.log(productData.areaType);
         productData.images = imagesLinks;
         productData.shop = shop;
 
@@ -74,6 +74,7 @@ router.post(
         });
       }
     } catch (error) {
+      console.log('here', error);
       return next(new ErrorHandler(error, 400));
     }
   })

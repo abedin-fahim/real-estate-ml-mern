@@ -22,13 +22,17 @@ const productSchema = new mongoose.Schema({
   originalPrice: {
     type: Number,
   },
+  areaType: {
+    type: String,
+    required: [true, 'Please select your property area type!'],
+  },
   discountPrice: {
     type: Number,
-    required: [true, 'Please enter your product price!'],
+    required: [true, 'Please enter your property price!'],
   },
   stock: {
     type: Number,
-    required: [true, 'Please enter your product stock!'],
+    required: [true, 'Please enter your property stock!'],
   },
   images: [
     {

@@ -12,6 +12,7 @@ export const createProduct =
     discountPrice,
     stock,
     shopId,
+    areaType,
     images
   ) =>
   async (dispatch) => {
@@ -29,6 +30,7 @@ export const createProduct =
         originalPrice,
         discountPrice,
         stock,
+        areaType,
         shopId,
         images
       );
