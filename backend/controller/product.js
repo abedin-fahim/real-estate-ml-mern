@@ -11,17 +11,17 @@ const axios = require('axios');
 
 const pricePredictorModelUrl = 'http://localhost:5000/predict';
 
-const data = {
-  area: 'Super built-up Area',
-  location: 'Electronic City Phase II',
-  size: 2,
-  sqft: 1056,
-  bath: 2,
-  balcony: 2,
-};
-const queryString = Object.entries(data)
-  .map(([key, value]) => `${key}=${encodeURIComponent(value)}`)
-  .join('&');
+// const data = {
+//   area: 'Super built-up Area',
+//   location: 'Electronic City Phase II',
+//   size: 2,
+//   sqft: 1056,
+//   bath: 2,
+//   balcony: 2,
+// };
+// const queryString = Object.entries(data)
+//   .map(([key, value]) => `${key}=${encodeURIComponent(value)}`)
+//   .join('&');
 
 // create product
 router.post(
@@ -56,13 +56,31 @@ router.post(
 
         let productData = req.body;
 
+        console.log(
+          productData.bedroom,
+          productData.sqft,
+          productData.bath,
+          productData.balcony
+        );
+
+        const data = {
+          area: productData.areaType,
+          location: productData.category,
+          size: productData.bedroom,
+          sqft: productData.sqft,
+          bath: productData.bath,
+          balcony: productData.balcony,
+        };
+        const queryString = Object.entries(data)
+          .map(([key, value]) => `${key}=${encodeURIComponent(value)}`)
+          .join('&');
+
         const response = await axios.post(pricePredictorModelUrl, queryString);
 
         productData = {
           predictionPrice: response.data.Predict_score,
           ...req.body,
         };
-        console.log(productData.areaType);
         productData.images = imagesLinks;
         productData.shop = shop;
 
@@ -74,7 +92,6 @@ router.post(
         });
       }
     } catch (error) {
-      console.log('here', error);
       return next(new ErrorHandler(error, 400));
     }
   })

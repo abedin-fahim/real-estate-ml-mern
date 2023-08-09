@@ -26,6 +26,22 @@ const productSchema = new mongoose.Schema({
     type: String,
     required: [true, 'Please select your property area type!'],
   },
+  bedroom: {
+    type: Number,
+    required: [true, 'Please select your bedroom number'],
+  },
+  sqft: {
+    type: Number,
+    required: [true, 'Please select your property sqft'],
+  },
+  bath: {
+    type: Number,
+    required: [true, 'Please select your bathroom number'],
+  },
+  balcony: {
+    type: Number,
+    required: [true, 'Please select your balcony number'],
+  },
   discountPrice: {
     type: Number,
     required: [true, 'Please enter your property price!'],
