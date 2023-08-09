@@ -20,6 +20,10 @@ const CreateProduct = () => {
   const [originalPrice, setOriginalPrice] = useState();
   const [discountPrice, setDiscountPrice] = useState();
   const [areaType, setAreaType] = useState('');
+  const [bedroom, setBedroom] = useState();
+  const [sqft, setSqft] = useState();
+  const [bath, setBath] = useState();
+  const [balcony, setBalcony] = useState();
 
   // const [stock, setStock] = useState();
   const stock = 1;
@@ -67,6 +71,10 @@ const CreateProduct = () => {
     newForm.append('originalPrice', originalPrice);
     newForm.append('discountPrice', discountPrice);
     newForm.append('areaType', areaType);
+    newForm.append('bedroom', bedroom);
+    newForm.append('sqft', sqft);
+    newForm.append('bath', bath);
+    newForm.append('balcony', balcony);
     newForm.append('stock', stock);
     newForm.append('shopId', seller._id);
     dispatch(
@@ -78,6 +86,10 @@ const CreateProduct = () => {
         originalPrice,
         discountPrice,
         areaType,
+        bedroom,
+        sqft,
+        bath,
+        balcony,
         stock,
         shopId: seller._id,
         images,
@@ -87,7 +99,7 @@ const CreateProduct = () => {
 
   return (
     <div className='w-[90%] 800px:w-[50%] bg-white  shadow h-[80vh] rounded-[4px] p-3 overflow-y-scroll'>
-      <h5 className='text-[30px] font-Poppins text-center'>Create Product</h5>
+      <h5 className='text-[30px] font-Poppins text-center'>Sell Property</h5>
       {/* create product form */}
       <form onSubmit={handleSubmit}>
         <br />
@@ -164,15 +176,89 @@ const CreateProduct = () => {
           </select>
         </div>
         <br />
+        <div className='w-full pb-5'>
+          <label className='pb-2'>
+            Bedroom <span className='text-red-500'>*</span>
+          </label>
+          <select
+            className='w-1/3 ml-3 mt-2 border h-[35px] rounded-[5px]'
+            value={bedroom}
+            onChange={(e) => {
+              setBedroom(parseInt(e.target.value));
+            }}
+          >
+            <option value='Choose a area type'>Select BHK</option>
+            <option value='1'>1 BHK</option>
+            <option value='2'>2 BHK</option>
+            <option value='3'>3 BHK</option>
+            <option value='4'>4 BHK</option>
+            <option value='5'>5 BHK</option>
+            <option value='6'>6 BHK</option>
+          </select>
+
+          <label className='pb-2 ml-5'>
+            Bath <span className='text-red-500'>*</span>
+          </label>
+          <select
+            className='w-1/3 ml-3 mt-2 border h-[35px] rounded-[5px]'
+            value={bath}
+            onChange={(e) => {
+              setBath(parseInt(e.target.value));
+              // console.log(parseInt(e.target.value));
+            }}
+          >
+            <option value='Choose a area type'>Select bath</option>
+            <option value='1'>1</option>
+            <option value='2'>2</option>
+            <option value='3'>3</option>
+            <option value='4'>4</option>
+            <option value='5'>5</option>
+            <option value='6'>6</option>
+          </select>
+
+          <label className='pb-2'>
+            Balcony <span className='text-red-500'>*</span>
+          </label>
+          <select
+            className='w-1/3 ml-3 mt-2 border h-[35px] rounded-[5px]'
+            value={balcony}
+            onChange={(e) => {
+              setBalcony(parseInt(e.target.value));
+              console.log(parseInt(e.target.value));
+            }}
+          >
+            <option value='Choose a area type'>Select balcony</option>
+            <option value='1'>1</option>
+            <option value='2'>2</option>
+            <option value='3'>3</option>
+            <option value='4'>4</option>
+            <option value='5'>5</option>
+            <option value='6'>6</option>
+          </select>
+        </div>
         <div>
-          <label className='pb-2'>Room Type</label>
+          <label className='pb-2 '>
+            Total Square feet <span className='text-red-500'>*</span>
+          </label>
+          <input
+            type='text'
+            name='name'
+            value={sqft}
+            className='mt-2 appearance-none block w-full px-3 h-[35px] border border-gray-300 rounded-[3px] placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm'
+            onChange={(e) => setSqft(parseInt(e.target.value))}
+            placeholder='Enter the total square feet...'
+          />
+        </div>
+        <br />
+        <div>
+          <label className='pb-2'>Tags</label>
           <input
             type='text'
             name='tags'
             value={tags}
             className='mt-2 appearance-none block w-full px-3 h-[35px] border border-gray-300 rounded-[3px] placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm'
             onChange={(e) => setTags(e.target.value)}
-            placeholder='Enter balcony, bath, bedroom...'
+            placeholder='Enter tags...'
           />
         </div>
         <br />

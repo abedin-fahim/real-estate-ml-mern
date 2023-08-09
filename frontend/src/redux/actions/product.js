@@ -13,6 +13,10 @@ export const createProduct =
     stock,
     shopId,
     areaType,
+    bedroom,
+    sqft,
+    bath,
+    balcony,
     images
   ) =>
   async (dispatch) => {
@@ -31,6 +35,10 @@ export const createProduct =
         discountPrice,
         stock,
         areaType,
+        bedroom,
+        sqft,
+        bath,
+        balcony,
         shopId,
         images
       );
