@@ -11,19 +11,7 @@ const axios = require('axios');
 
 const pricePredictorModelUrl = 'http://localhost:5000/predict';
 
-// const data = {
-//   area: 'Super built-up Area',
-//   location: 'Electronic City Phase II',
-//   size: 2,
-//   sqft: 1056,
-//   bath: 2,
-//   balcony: 2,
-// };
-// const queryString = Object.entries(data)
-//   .map(([key, value]) => `${key}=${encodeURIComponent(value)}`)
-//   .join('&');
-
-// create product
+// list property
 router.post(
   '/create-product',
   catchAsyncErrors(async (req, res, next) => {
@@ -55,13 +43,6 @@ router.post(
         }
 
         let productData = req.body;
-
-        console.log(
-          productData.bedroom,
-          productData.sqft,
-          productData.bath,
-          productData.balcony
-        );
 
         const data = {
           area: productData.areaType,

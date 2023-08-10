@@ -3,10 +3,10 @@ const styles = {
   heading:
     'text-[27px] text-center md:text-start font-[600] font-Roboto pb-[20px]',
   section: 'w-11/12 mx-auto',
-  productTitle: 'text-[25px] font-[600] font-Roboto text-[#333]',
-  productDiscountPrice: 'font-bold text-[18px] text-[#333] font-Roboto',
+  productTitle: 'text-[20px] mb-5 font-[500] font-Roboto text-[#333]',
+  productDiscountPrice: 'font-[500] text-[34px] text-[#333] font-Roboto',
   productPredictedPrice:
-    'font-[700] text-[18px] rounded-lg text-black mb-5 text-center pl-3 py-5 mt-[-4px] bg-[#3BC077]',
+    'font-[400] text-[18px] rounded-lg text-white mb-5 text-center px-3 py-5 mt-5 bg-[#000]',
   price: 'font-[500] text-[16px] text-[#d55b45] pl-3 mt-[-4px] line-through',
   shop_name: 'pt-3 text-[15px] text-blue-400 pb-3',
   active_indicator: 'absolute bottom-[-27%] left-0 h-[3px] w-full bg-[crimson]',
@@ -19,6 +19,7 @@ const styles = {
   activeStatus:
     'w-[10px] h-[10px] rounded-full absolute top-0 right-1 bg-[#40d132]',
   noramlFlex: 'flex items-center',
+  description: 'text-[#333] font-[400] text-[18px] leading-8',
 };
 
 export default styles;

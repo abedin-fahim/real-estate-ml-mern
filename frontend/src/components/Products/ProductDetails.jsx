@@ -5,6 +5,7 @@ import {
   AiOutlineMessage,
   AiOutlineShoppingCart,
 } from 'react-icons/ai';
+import { BsBucket, BsBuilding, BsMoonStars, BsDiamond } from 'react-icons/bs';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import { getAllProductsShop } from '../../redux/actions/product';
@@ -61,14 +62,14 @@ const ProductDetails = ({ data }) => {
   const addToCartHandler = (id) => {
     const isItemExists = cart && cart.find((i) => i._id === id);
     if (isItemExists) {
-      toast.error('Item already in cart!');
+      toast.error('Property already in the visit list!');
     } else {
       if (data.stock < 1) {
         toast.error('Product stock limited!');
       } else {
         const cartData = { ...data, qty: count };
         dispatch(addTocart(cartData));
-        toast.success('Item added to cart successfully!');
+        toast.success('Property added to visit list successfully!');
       }
     }
   };
@@ -121,7 +122,7 @@ const ProductDetails = ({ data }) => {
                 <img
                   src={`${data && data.images[select]?.url}`}
                   alt=''
-                  className='w-[80%]'
+                  className='w-[85%]'
                 />
                 <div className='w-full flex'>
                   {data &&
@@ -129,12 +130,12 @@ const ProductDetails = ({ data }) => {
                       <div
                         className={`${
                           select === 0 ? 'border' : 'null'
-                        } cursor-pointer`}
+                        } cursor-pointer mt-5`}
                       >
                         <img
                           src={`${i?.url}`}
                           alt=''
-                          className='h-[200px] overflow-hidden mr-3 mt-3'
+                          className='h-[80px] overflow-hidden mr-3 my-3'
                           onClick={() => setSelect(index)}
                         />
                       </div>
@@ -147,55 +148,66 @@ const ProductDetails = ({ data }) => {
                 </div>
               </div>
               <div className='w-full 800px:w-[50%] pt-5'>
+                <div className='flex pb-5'>
+                  <h4 className={`${styles.productDiscountPrice}`}>
+                    USD: {data.discountPrice} per square feet
+                  </h4>
+                  <h3 className={`${styles.price}`}>
+                    {data.originalPrice ? 'USD' + data.originalPrice : null}
+                  </h3>
+                </div>
+                <h1 className={`${styles.productTitle}`}>
+                  Location: {data.category}
+                </h1>
+                <div className='w-full flex align-middle gap-10 pt-5 pb-10'>
+                  <span className='flex align-middle gap-3'>
+                    <BsMoonStars size={25} /> {data.bedroom} bedroom
+                  </span>
+                  <span className='flex align-middle gap-3'>
+                    <BsBucket size={25} /> {data.bath} baths
+                  </span>
+                  <span className='flex align-middle gap-3'>
+                    <BsDiamond size={25} /> {data.balcony} balcony
+                  </span>
+                  <span className='flex align-middle gap-3'>
+                    <BsBuilding size={25} /> {data.sqft} square feet
+                  </span>
+                </div>
+                <h1 className={`${styles.productTitle}`}>{data.name}</h1>
+                <p className={`${styles.description}`}>{data.description}</p>
                 <h4 className={`${styles.productPredictedPrice}`}>
                   {data.predictionPrice}
                 </h4>
-                <h1 className={`${styles.productTitle}`}>{data.name}</h1>
-                <p>{data.description}</p>
-                <div className='flex pt-3'>
-                  <h4 className={`${styles.productDiscountPrice}`}>
-                    {data.discountPrice}$
-                  </h4>
-                  <h3 className={`${styles.price}`}>
-                    {data.originalPrice ? data.originalPrice + '$' : null}
-                  </h3>
-                </div>
-
-                <div className='flex items-center mt-12 justify-between pr-3'>
-                  {/* <div>
-                    <button
-                      className='bg-gradient-to-r from-teal-400 to-teal-500 text-white font-bold rounded-l px-4 py-2 shadow-lg hover:opacity-75 transition duration-300 ease-in-out'
-                      onClick={decrementCount}
-                    >
-                      -
-                    </button>
-                    <span className='bg-gray-200 text-gray-800 font-medium px-4 py-[11px]'>
-                      {count}
-                    </span>
-                    <button
-                      className='bg-gradient-to-r from-teal-400 to-teal-500 text-white font-bold rounded-l px-4 py-2 shadow-lg hover:opacity-75 transition duration-300 ease-in-out'
-                      onClick={incrementCount}
-                    >
-                      +
-                    </button>
-                  </div> */}
+                <div className='flex items-center mt-5 justify-between pr-3'>
                   <div>
                     {click ? (
-                      <AiFillHeart
-                        size={30}
-                        className='cursor-pointer'
+                      <div
+                        className={`${styles.button} text-white !mt-6 !rounded !h-11 flex items-center`}
                         onClick={() => removeFromWishlistHandler(data)}
-                        color={click ? 'red' : '#333'}
-                        title='Remove from wishlist'
-                      />
+                      >
+                        {' '}
+                        Saved
+                        <AiFillHeart
+                          size={25}
+                          className='cursor-pointer ml-3'
+                          color={click ? 'red' : '#fff'}
+                          title='Remove from wishlist'
+                        />
+                      </div>
                     ) : (
-                      <AiOutlineHeart
-                        size={30}
-                        className='cursor-pointer'
+                      <div
+                        className={`${styles.button} text-white !mt-6 !rounded !h-11 flex items-center`}
                         onClick={() => addToWishlistHandler(data)}
-                        color={click ? 'red' : '#333'}
-                        title='Add to wishlist'
-                      />
+                      >
+                        {' '}
+                        Save
+                        <AiOutlineHeart
+                          size={25}
+                          className='cursor-pointer ml-3'
+                          color={click ? 'red' : '#fff'}
+                          title='Add to wishlist'
+                        />
+                      </div>
                     )}
                   </div>
                 </div>
@@ -204,7 +216,11 @@ const ProductDetails = ({ data }) => {
                   onClick={() => addToCartHandler(data._id)}
                 >
                   <span className='text-white flex items-center'>
-                    Save Property <AiOutlineShoppingCart className='ml-1' />
+                    Book a visit{' '}
+                    <AiOutlineShoppingCart
+                      className='ml-3'
+                      size={25}
+                    />
                   </span>
                 </div>
                 <div className='flex items-center pt-8'>
@@ -243,7 +259,6 @@ const ProductDetails = ({ data }) => {
             totalReviewsLength={totalReviewsLength}
             averageRating={averageRating}
           />
-          <br />
           <br />
         </div>
       ) : null}
