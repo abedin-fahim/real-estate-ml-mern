@@ -227,7 +227,7 @@ const PaymentInfo = ({
         </div> */}
 
         {/* pay with card */}
-        {/* {select === 1 ? (
+        {select === 1 ? (
           <div className='w-full flex border-b'>
             <form
               className='w-full'
@@ -320,7 +320,7 @@ const PaymentInfo = ({
               />
             </form>
           </div>
-        ) : null} */}
+        ) : null}
       </div>
 
       <br />
