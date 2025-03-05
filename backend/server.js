@@ -8,6 +8,8 @@ process.on("uncaughtException", (err) => {
   console.log(`shutting down the server for handling uncaught exception`);
 });
 
+const PORT = process.env.PORT || 8000;
+
 // config
 if (process.env.NODE_ENV !== "PRODUCTION") {
   require("dotenv").config({
@@ -26,9 +28,9 @@ cloudinary.config({
 
 
 // create server
-const server = app.listen(process.env.PORT, () => {
+const server = app.listen(PORT, () => {
   console.log(
-    `Server is running on http://localhost:${process.env.PORT}`
+    `Server is running on http://localhost:${PORT}`
   );
 });
 
